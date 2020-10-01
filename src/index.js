@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'antd/dist/antd.css';
-import App from './lifecyle/index2';
+import './index.css';
+import App from './lifecyle/index';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
