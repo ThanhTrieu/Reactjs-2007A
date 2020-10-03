@@ -16,6 +16,7 @@ class MyProvider extends React.Component {
       this.setState(state, resolve);
     });
   }
+  
   async componentDidMount(){
     // cap nhat state loading
     await this.setStateAsync({loading: true});
