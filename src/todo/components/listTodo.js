@@ -1,19 +1,8 @@
 import React from 'react';
-import { List, Avatar, Row, Col } from 'antd';
-const data = [
-  {
-    title: 'Ant Design Title 1',
-  },
-  {
-    title: 'Ant Design Title 2',
-  },
-  {
-    title: 'Ant Design Title 3',
-  },
-  {
-    title: 'Ant Design Title 4',
-  },
-];
+import PropTypes from 'prop-types';
+import { List, Row, Col, Checkbox, Typography } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
+const { Text } = Typography;
 
 class ListTodo extends React.PureComponent {
 
@@ -23,19 +12,36 @@ class ListTodo extends React.PureComponent {
         <Col span={24}>
           <List
             itemLayout="horizontal"
-            dataSource={data}
+            dataSource={this.props.todo}
             renderItem={item => (
-            <List.Item>
-              <List.Item.Meta
-              avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-              title={<a href="https://ant.design">{item.title}</a>}
-            />
-            </List.Item>
+            <>
+            {item.show && (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Checkbox
+                    onChange={() => this.props.finish(item.id)}
+                    checked={item.done}
+                    ></Checkbox>}
+                  title={ item.done ? (<Text delete>{item.name}</Text>) : (<Text>{item.name}</Text>) }
+                />
+                <div>
+                  <DeleteOutlined
+                    onClick={() => this.props.delete(item.id)}
+                  />
+                </div>
+              </List.Item>
+            )}
+            </>
           )}
         />
       </Col>
     </Row>
     )
   }
+}
+ListTodo.propTypes = {
+  todo: PropTypes.array,
+  delete: PropTypes.func,
+  finish: PropTypes.func
 }
 export default ListTodo;
