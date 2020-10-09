@@ -61,12 +61,21 @@ class Todo extends React.Component {
   filterListTodo = (type) => {
     switch (type){
       case 'all':
+        const all = this.state.listTodo.map(item => {
+          return {...item, show: true};
+        });
+        
+        this.setState({
+          ...this.state,
+          listTodo: all
+        })
         break;
       case 'finished':
           // tim tat ca nhung thang ko phai la done an di
           const finished = this.state.listTodo.map(item => {
-            return !item.done ? {...item, show: !item.show} : item;
+            return !item.done ? {...item, show: false} : (item.done ? {...item, show: true} : item);
           });
+
           this.setState({
             ...this.state,
             listTodo: finished
@@ -75,8 +84,9 @@ class Todo extends React.Component {
       case 'unfinished':
           // tim tat ca nhung thang la done an di
           const unfinished = this.state.listTodo.map(item => {
-            return item.done ? {...item, show: !item.show} : item;
+            return item.done ? {...item, show: false} : (!item.done ? {...item, show: true} : item);
           });
+
           this.setState({
             ...this.state,
             listTodo: unfinished

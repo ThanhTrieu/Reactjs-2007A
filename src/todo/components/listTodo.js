@@ -7,6 +7,7 @@ const { Text } = Typography;
 class ListTodo extends React.PureComponent {
 
   render() {
+    //console.log(this.props.todo);
     return (
       <Row style={{marginTop: '20px', marginBottom: '20px'}}>
         <Col span={24}>
