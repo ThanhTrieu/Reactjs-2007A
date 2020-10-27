@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Pagination } from 'antd';
+import { Row, Col, Pagination } from 'antd';
 import LayoutComponent from '../components/layout';
-import { getDataNewFilm } from '../services/api';
+import { getDataMovies } from '../services/api';
 import LoadingData from '../components/loading-data';
-
-const { Meta } = Card;
+import ListMoviesView from '../components/list-movies';
 
 const HomePage = () => {
   const [loadingHome, setLoadingHome] = useState(false);
@@ -15,7 +14,7 @@ const HomePage = () => {
   useEffect(() => {
     const getData = async () => {
       setLoadingHome(true);
-      const data = await getDataNewFilm(page);
+      const data = await getDataMovies(page);
       if(data){
         setMovie(data.results);
         setTotaItem(data.total_results);
@@ -44,19 +43,7 @@ const HomePage = () => {
 
   return (
     <LayoutComponent>
-      <Row style={{marginTop: '20px', marginBottom: '20px'}}>
-        {movies.map((item, index) => (
-          <Col span={6} key={index}>
-            <Card
-              hoverable
-              style={{ width: 400, marginBottom: '15px', marginRight: '5px'}}
-              cover={<img alt={item.title} src={`https://image.tmdb.org/t/p/w400/${item.poster_path}`} />}
-            >
-              <Meta title={item.title} />
-            </Card>
-          </Col>
-        ))}
-      </Row>
+      <ListMoviesView movies={movies} />
       <Row style={{textAlign: 'center', marginTop: '20px'}}>
           <Col span={24}>
             <Pagination

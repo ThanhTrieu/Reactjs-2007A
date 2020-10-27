@@ -9,6 +9,7 @@ import {
 const HomeComponent = lazy(() => import('./pages/home'));
 const NewFilmComponent = lazy(() => import('./pages/new-film'));
 const SearchComponent = lazy(() => import('./pages/search-film'));
+const DetailMovieComponent = lazy(() => import('./pages/detail'));
 
 const Movies = () => {
   return(
@@ -23,6 +24,10 @@ const Movies = () => {
           </Route>
           <Route path="/search-film">
             <SearchComponent />
+          </Route>
+          {/* localhost:3000/movie/ngoi-nha-hanh-phuc~2199 */}
+          <Route path="/movie/:slug~:id">
+            <DetailMovieComponent/>
           </Route>
           <Route extract path="/">
             <HomeComponent/>
