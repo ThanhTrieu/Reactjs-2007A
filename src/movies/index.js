@@ -3,35 +3,56 @@ import { Skeleton } from 'antd';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
+import { isAuthenticated } from "./services/login";
 
 const HomeComponent = lazy(() => import('./pages/home'));
 const NewFilmComponent = lazy(() => import('./pages/new-film'));
 const SearchComponent = lazy(() => import('./pages/search-film'));
 const DetailMovieComponent = lazy(() => import('./pages/detail'));
+const LoginComponent = lazy(() => import('./pages/login'));
+
+const PrivateRoute = ({ children, ...rest }) => {
+  const auth = isAuthenticated();
+  return (
+    <Route
+      {...rest}
+      render={({ location }) => auth ? (children) : (
+        <Redirect to={{
+          pathname: "/login",
+          state: { from: location }
+        }} />
+      )}
+    />
+  )
+}
 
 const Movies = () => {
   return(
     <Router>
       <Suspense fallback={<Skeleton active />}>
         <Switch>
-          <Route path="/home">
+          <PrivateRoute path="/home">
             <HomeComponent />
-          </Route>
-          <Route path="/new-film">
+          </PrivateRoute>
+          <PrivateRoute path="/new-film">
             <NewFilmComponent />
-          </Route>
-          <Route path="/search-film">
+          </PrivateRoute>
+          <PrivateRoute path="/search-film">
             <SearchComponent />
-          </Route>
+          </PrivateRoute>
           {/* localhost:3000/movie/ngoi-nha-hanh-phuc~2199 */}
-          <Route path="/movie/:slug~:id">
+          <PrivateRoute path="/movie/:slug~:id">
             <DetailMovieComponent/>
+          </PrivateRoute>
+          <Route path="/login">
+            <LoginComponent/>
           </Route>
-          <Route extract path="/">
+          <PrivateRoute extract path="/">
             <HomeComponent/>
-          </Route>
+          </PrivateRoute>
         </Switch>
       </Suspense>
     </Router>
