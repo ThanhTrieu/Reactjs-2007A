@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css'; 
-import App from './movies/index';
+import App from './redux-v2/index';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

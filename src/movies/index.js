@@ -14,6 +14,22 @@ const SearchComponent = lazy(() => import('./pages/search-film'));
 const DetailMovieComponent = lazy(() => import('./pages/detail'));
 const LoginComponent = lazy(() => import('./pages/login'));
 
+const LoginRouter = ({ children, ...rest }) => {
+  const isLogin = isAuthenticated();
+  return (
+    <Route
+      {...rest}
+      render={({ location }) => isLogin ? (
+        <Redirect to={{
+          pathname: "/",
+          state: { from: location }
+        }}
+        />
+      ) : (children)}
+    />
+  )
+}
+
 const PrivateRoute = ({ children, ...rest }) => {
   const auth = isAuthenticated();
   return (
@@ -47,9 +63,9 @@ const Movies = () => {
           <PrivateRoute path="/movie/:slug~:id">
             <DetailMovieComponent/>
           </PrivateRoute>
-          <Route path="/login">
+          <LoginRouter path="/login">
             <LoginComponent/>
-          </Route>
+          </LoginRouter>
           <PrivateRoute extract path="/">
             <HomeComponent/>
           </PrivateRoute>
