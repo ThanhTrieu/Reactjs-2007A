@@ -1,15 +1,15 @@
 import React from 'react';
-import CoronaApp from './pages/corona';
 import { Provider } from 'react-redux';
 import configStore from './store/index';
+import AppWeather from './pages/weather';
 
 const { store } = configStore();
 
-const CoronaVirus = () => {
+const AppIndex = () => {
   return (
     <Provider store={store}>
-      <CoronaApp/>
+      <AppWeather />
     </Provider>
   )
 }
-export default CoronaVirus;
+export default AppIndex;
