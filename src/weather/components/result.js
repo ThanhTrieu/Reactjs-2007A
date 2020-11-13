@@ -34,7 +34,7 @@ const ResultWeather = () => {
           </Row>
           <Row>
             <Col span={12}>
-              <img width={100} height={100} src={`http://openweathermap.org/img/w/${dataWeather.icon}.png`} />
+              <img alt={dataWeather.temp} width={100} height={100} src={`http://openweathermap.org/img/w/${dataWeather.icon}.png`} />
               <span>{dataWeather.temp}</span>
               <p>{dataWeather.description}</p>
             </Col>
