@@ -1,14 +1,21 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const { Header } = Layout;
+
 const HeaderComponent = () => {
+  const { pathname } = useLocation();
   return (
     <Header>
       <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-        <Menu.Item key="1">Home</Menu.Item>
-        <Menu.Item key="2">Cart</Menu.Item>
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={pathname}>
+        <Menu.Item key="/home">
+          <NavLink to="/home">Home</NavLink>
+        </Menu.Item>
+        <Menu.Item key="/cart">
+          <NavLink to="/cart">Cart</NavLink>
+        </Menu.Item>
       </Menu>
     </Header>
   )

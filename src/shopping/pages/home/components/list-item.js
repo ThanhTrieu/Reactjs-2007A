@@ -1,9 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Row, Col, Card, Button } from 'antd';
 import { Skeleton } from 'antd';
+import { addProductToCart } from '../../cart/actions/index';
 
 const { Meta } = Card;
 const ListItems = (props) => {
+  const dispatch = useDispatch();
+
+  const addCart = (id) => {
+    dispatch(addProductToCart(id));
+  }
+
   return (
     <>
       {props.data && !props.loading ? (
@@ -19,7 +27,10 @@ const ListItems = (props) => {
               >
                 <Meta title={item.name} />
                 <p>Price: {item.price}</p>
-                <Button type="primary"> Add Cart </Button>
+                <Button
+                  type="primary"
+                  onClick={() => addCart(item.id)}
+                > Add Cart </Button>
               </Card>
             </Col>
           ))}
