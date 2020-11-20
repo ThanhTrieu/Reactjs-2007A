@@ -4,6 +4,17 @@ export const addProductToCart = (idProduct) => ({
   type: types.ADD_CART,
   idProduct
 });
+
+export const changeQtyCart = (id, qty) => ({
+  type: types.CHANGE_QTY,
+  id,
+  qty
+});
+export const removeItemCart = (id) => ({
+  type: types.DELETE_ITEM_CART,
+  id
+});
+
 export const startAddCart = (loading) => ({
   type: types.START_ADD_CART,
   loading

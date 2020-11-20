@@ -11,7 +11,8 @@ const initialState = {
     qty: 1
   }]*/
   errorCart: null,
-  totalMoney: 0
+  totalMoney: 0,
+  countItems: 0
 }
 
 export const cartReducer = (state = initialState, action) => {
@@ -25,13 +26,14 @@ export const cartReducer = (state = initialState, action) => {
       // thong tin chi tiet cua san phan lay api de them vao cart
       // can kiem tra xem gio hang da co san pham nao chua ?
       // neu chua thi them moi san pham luon
-      if(state.dataCart.length > 0){
+      if(!state.dataCart){
         infoPd.qty = 1; // them qty vao - mac dinh la 1
         return {
           ...state,
           dataCart:[...state.dataCart, infoPd],
           errorCart: null,
-          totalMoney: parseInt(state.totalMoney) + parseInt(infoPd.price)
+          totalMoney: parseInt(state.totalMoney) + parseInt(infoPd.price),
+          countItems: state.countItems + 1 // mac dinh la 0 + 1 = 1
         }
       } else {
         // da ton tai it nhat 1 san pham trong gio hang
@@ -53,7 +55,8 @@ export const cartReducer = (state = initialState, action) => {
             ...state,
             dataCart:[...state.dataCart, infoPd],
             errorCart: null,
-            totalMoney: parseInt(state.totalMoney) + parseInt(infoPd.price)
+            totalMoney: parseInt(state.totalMoney) + parseInt(infoPd.price),
+            countItems: state.countItems + 1
           }
         }
       }
@@ -63,6 +66,35 @@ export const cartReducer = (state = initialState, action) => {
         errorCart: action.error,
         dataCart: [],
         totalMoney: 0
+      }
+    case types.CHANGE_QTY:
+      const idCart = action.id;
+      const qtyCart = action.qty;
+      const changeItem = state.dataCart.filter(item => item.id === idCart)[0]; // dung san pham ma nguoi dung muon cap nhat lai so luong mua;
+      // cap nhat lai so luong mua
+      changeItem.qty = qtyCart;
+      //cap nhat tong tien
+      // duyet lai du lieu cart + cong don tien lai
+      const newTotalMoney = state.dataCart.map(item => parseInt(item.price) * parseInt(item.qty)).reduce((pre, next) => pre + next);
+      return {
+        ...state,
+        errorCart: null,
+        totalMoney: newTotalMoney
+      }
+    case types.DELETE_ITEM_CART:
+      const idItemDel = action.id;
+      // can lay ra dc san pham ma nguoi muo xoa
+      const delItem = state.dataCart.filter(item => item.id === idItemDel)[0];
+      // lay ra toan bo san pham khong chua san pham ma nguoi dung da xoa
+      const newsItems = state.dataCart.filter(item => item.id !== idItemDel);
+      // tong tien da co tru bo tien vua bi xoa;
+      const newsTotalMoney = state.totalMoney - (parseInt(delItem.price) * delItem.qty);
+      return {
+        ...state,
+        dataCart: newsItems,
+        totalMoney: newsTotalMoney,
+        errorCart: null,
+        countItems: state.countItems - 1
       }
     default:
       return state;
