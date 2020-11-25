@@ -1,18 +1,19 @@
 import React, { lazy, Suspense } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { ConnectedRouter } from 'connected-react-router';
 import {
-  BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
 import { Skeleton } from 'antd';
 import configStore from './redux/store';
 
-const { store, persistor } = configStore({});
+const { store, persistor, history } = configStore({});
 
-const HomeComponent= lazy(() => import('./pages/home/index'));
-const CartComponent= lazy(() => import('./pages/cart/index'));
+const HomeComponent = lazy(() => import('./pages/home/index'));
+const CartComponent = lazy(() => import('./pages/cart/index'));
+const LoginComponent = lazy(() => import('./pages/login/index'));
 
 const ShoppingCart = () => {
   return (
@@ -21,7 +22,7 @@ const ShoppingCart = () => {
         loading={<Skeleton active />}
         persistor={persistor}
       >
-        <Router>
+        <ConnectedRouter history={history}>
           <Suspense
             fallback={<Skeleton active />}
           >
@@ -32,12 +33,15 @@ const ShoppingCart = () => {
               <Route path="/cart">
                 <CartComponent/>
               </Route>
+              <Route path="/login">
+                <LoginComponent />
+              </Route>
               <Route exact path="/">
                 <HomeComponent/>
               </Route>
             </Switch>
           </Suspense>
-        </Router>
+        </ConnectedRouter>
       </PersistGate>
     </Provider>
   )

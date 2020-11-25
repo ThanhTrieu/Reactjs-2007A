@@ -1,10 +1,9 @@
-import { data } from './data';
+import products from './data-1';
+import detail from './data';
 
 export const getListDataProducts = () => {
-  const result = data;
-  return result;
+  return products;
 }
 export const getDataProductById = (id) => {
-  const detail = data.filter(item => item.id === id)[0];
-  return detail;
+  return detail.filter(item => item.id === id)[0];
 }

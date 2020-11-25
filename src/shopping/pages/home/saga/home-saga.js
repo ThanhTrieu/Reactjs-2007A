@@ -1,6 +1,6 @@
 import {put, call, takeEvery} from 'redux-saga/effects';
 import * as actions from '../actions/index';
-import * as api from '../../../services/api';
+import * as api from '../../../services/api-v2';
 import * as types from '../actions/types';
 
 function* getDataProductSaga(){

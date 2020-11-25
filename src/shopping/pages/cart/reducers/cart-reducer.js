@@ -69,7 +69,8 @@ export const cartReducer = (state = initialState, action) => {
       }
     case types.CHANGE_QTY:
       const idCart = action.id;
-      const qtyCart = action.qty;
+      let qtyCart = action.qty;
+      qtyCart = qtyCart === null || qtyCart === '' ? 1 : qtyCart;
       const changeItem = state.dataCart.filter(item => item.id === idCart)[0]; // dung san pham ma nguoi dung muon cap nhat lai so luong mua;
       // cap nhat lai so luong mua
       changeItem.qty = qtyCart;

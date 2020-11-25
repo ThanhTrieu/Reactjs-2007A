@@ -38,8 +38,8 @@ const ListCarts = () => {
             </Col>
             <Col span={20} style={{padding: '8px'}}>
               <h3>{item.name}</h3>
-              <p>Price : {item.price}</p>
-              <p>Money: {parseInt(item.price)*item.qty}</p>
+              <p>Price : {parseInt(item.price).toLocaleString()}</p>
+              <p>Money: {(parseInt(item.price)*item.qty).toLocaleString()}</p>
               <InputNumber
                 min={1}
                 max={10}
@@ -57,7 +57,7 @@ const ListCarts = () => {
       }
       <Row>
         <Col span={24}>
-          <h2 style={{ textAlign:'right' }}>Tong tien: {totalMoney}</h2>
+          <h2 style={{ textAlign:'right' }}>Tong tien: {totalMoney.toLocaleString()}</h2>
         </Col>
       </Row>
     </>
