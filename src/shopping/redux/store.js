@@ -8,8 +8,6 @@ import rootSaga from './saga';
 import history from '../helpers/history';
 import { routerMiddleware } from 'connected-react-router';
 
-
-
 const configPersistRoot = {
   key: 'config-root',
   storage,

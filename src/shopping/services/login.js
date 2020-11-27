@@ -34,37 +34,3 @@ export const loginApi = async (user, pass) => {
   const result = await response.status === 200 ? await response.data : {};
   return result;
 }
-
-// luu thong tin token user tu api tra ve vao localStorage
-export const saveTokenLocalStorage = (token) => {
-  if(token !== undefined && token !== null && token !== ''){
-    localStorage.setItem('token', JSON.stringify(token));
-  }
-}
-export const getTokenLocalStorage = () => {
-  const token = localStorage.getItem('token');
-  if(token !== undefined && token !== null && token !== ''){
-    return JSON.parse(token);
-  }
-  return null;
-}
-
-export const decodeTokenFormLocalStorage = () => {
-  const token = getTokenLocalStorage();
-  let decodeToken = null;
-  if(token !== undefined && token !== null && token !== ''){
-    decodeToken = jwt.verify(token, KEY_JWT);
-  }
-  return decodeToken;
-}
-export const removeTokenLocalStorage = () => {
-  localStorage.removeItem('token');
-}
-
-export const isAuthenticated = () => {
-  const token = decodeTokenFormLocalStorage();
-  if(token !== undefined && token !== null && token !== ''){
-    return true;
-  }
-  return false;
-}

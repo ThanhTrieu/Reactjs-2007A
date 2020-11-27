@@ -8,6 +8,9 @@ import ListItems from './list-item';
 //import history from '../../../helpers/history';
 
 const FeaturedPage = () => {
+  // console.log(localStorage);
+  // const local = localStorage['persist:token-login-persist'];
+  // console.log(JSON.parse(local));
 
   // const dispatch = useDispatch();
   const {loadingPd, featuredPd } = useSelector(createStructuredSelector({

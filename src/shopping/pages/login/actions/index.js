@@ -11,9 +11,9 @@ export const loginStart = (loading) => ({
   loading
 });
 
-export const loginCancelled = (loading) => ({
+export const loginCancelled = (cancelled) => ({
   type: types.LOGIN_CANCELLED,
-  loading
+  cancelled
 });
 
 export const loginSuccess = (data) => ({

@@ -1,7 +1,7 @@
 import * as types from '../actions/types';
 
 const initialState = {
-  token: ''
+  token: null
 }
 
 const tokenReducer = (state = initialState, action) => {
