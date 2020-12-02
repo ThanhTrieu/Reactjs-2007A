@@ -6,5 +6,6 @@ export const LOGIN_CANCELLED = 'LOGIN_CANCELLED';
 export const LOGIN_START = 'LOGIN_START';
 
 export const LOGOUT = 'LOGOUT';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const SAVE_TOKEN = 'SAVE_TOKEN';
 export const DELETE_TOKEN = 'DELETE_TOKEN';

@@ -1,8 +1,18 @@
-import { call, put, cancel, cancelled, fork, take } from 'redux-saga/effects';
+import { call, put, cancel, cancelled, fork, take, takeLatest } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import * as actions from '../actions/index';
 import * as types from '../actions/types';
 import { loginApi } from '../../../services/login';
+
+function* logoutSaga() {
+  try {
+    yield put(actions.logoutSuccess('logout'));
+    yield put(actions.deleteTokenLogin(null));
+    yield put(push('/login'));
+  } catch (e) {
+   console.log(e);
+  }
+}
 
 function* loginSaga(user, pass) {
   try {
@@ -40,6 +50,10 @@ function* loginSaga(user, pass) {
       }))
     }
   }
+}
+
+export function* logoutSagaFlow() {
+  yield takeLatest(types.LOGOUT, logoutSaga);
 }
 
 export default function* loginSagaFlow() {

@@ -14,6 +14,7 @@ const { store, persistor, history } = configStore({});
 const HomeComponent = lazy(() => import('./pages/home/index'));
 const CartComponent = lazy(() => import('./pages/cart/index'));
 const LoginComponent = lazy(() => import('./pages/login/index'));
+const CheckoutPage = lazy(() => import('./pages/checkout/index'));
 
 const ShoppingCart = () => {
   return (
@@ -35,6 +36,9 @@ const ShoppingCart = () => {
               </Route>
               <Route path="/login">
                 <LoginComponent />
+              </Route>
+              <Route path="/checkout">
+                <CheckoutPage />
               </Route>
               <Route exact path="/">
                 <HomeComponent/>

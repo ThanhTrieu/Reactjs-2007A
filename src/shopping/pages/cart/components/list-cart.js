@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Image, InputNumber, Button } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { push } from 'connected-react-router';
 import * as reselect from '../reselect/cart-reselect';
 import * as actions from '../actions/index';
 
@@ -11,6 +12,10 @@ const ListCarts = () => {
     totalMoney: reselect.getTotalMoneyCart,
     dataCart: reselect.getDataCarts
   }));
+
+  const gotoCheckout = () => {
+    dispatch(push('/checkout'));
+  }
 
   const changeItemQtyCart = (id, qty) => {
     dispatch(actions.changeQtyCart(id, qty));
@@ -58,6 +63,7 @@ const ListCarts = () => {
       <Row>
         <Col span={24}>
           <h2 style={{ textAlign:'right' }}>Tong tien: {totalMoney.toLocaleString()}</h2>
+          <Button onClick={() => gotoCheckout()} type="primary" style={{ float:'right' }}> Thanh Toan Ngay</Button>
         </Col>
       </Row>
     </>

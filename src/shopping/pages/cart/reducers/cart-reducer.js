@@ -71,15 +71,19 @@ export const cartReducer = (state = initialState, action) => {
       const idCart = action.id;
       let qtyCart = action.qty;
       qtyCart = qtyCart === null || qtyCart === '' ? 1 : qtyCart;
-      const changeItem = state.dataCart.filter(item => item.id === idCart)[0]; // dung san pham ma nguoi dung muon cap nhat lai so luong mua;
-      // cap nhat lai so luong mua
-      changeItem.qty = qtyCart;
+
+      // cap nhat lai gio hang
+      const newListCart = state.dataCart.map(item => {
+        return item.id === idCart ? {...item, qty: qtyCart } : item;
+      });
       //cap nhat tong tien
       // duyet lai du lieu cart + cong don tien lai
-      const newTotalMoney = state.dataCart.map(item => parseInt(item.price) * parseInt(item.qty)).reduce((pre, next) => pre + next);
+      const newTotalMoney = newListCart.map(item => parseInt(item.price) * parseInt(item.qty)).reduce((pre, next) => pre + next);
+
       return {
         ...state,
         errorCart: null,
+        dataCart: newListCart,
         totalMoney: newTotalMoney
       }
     case types.DELETE_ITEM_CART:

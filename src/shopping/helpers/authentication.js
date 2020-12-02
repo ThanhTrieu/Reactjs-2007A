@@ -1,3 +1,4 @@
+
 import jwt from 'jsonwebtoken';
 const KEY_JWT = 'vccorp_2020';
 
@@ -12,8 +13,10 @@ export const getTokenFromLocalStorage = () => {
   return null;
 }
 
-export const decodeTokenFromLocalStorage = () => {
-  const token = getTokenFromLocalStorage();
+export const decodeTokenFromLocalStorage = ( stringToken = null ) => {
+  // stringToken : lay tu state trong store
+  const token = stringToken === null ? getTokenFromLocalStorage() : stringToken;
+
   let decodeToken = null;
   if(token !== null && token !== undefined && token !== '') {
     decodeToken = jwt.verify(token, KEY_JWT);
@@ -21,10 +24,18 @@ export const decodeTokenFromLocalStorage = () => {
   return decodeToken;
 }
 
-export const getUsernameUser = () => {
-  const infoUser = decodeTokenFromLocalStorage();
+export const getUsernameUser = (token = null) => {
+  const infoUser = decodeTokenFromLocalStorage(token);
   if(infoUser !== null) {
     return infoUser['username'];
   }
   return null;
+}
+
+export const isLogin = (token = null) => {
+  let auth = token === null ? getTokenFromLocalStorage() : token;
+  if(auth === null || auth === '' || auth === undefined){
+    return false;
+  }
+  return true;
 }

@@ -28,6 +28,11 @@ export const loginFailure = (error) => ({
 export const logoutRequest = () => ({
   type: types.LOGOUT
 });
+export const logoutSuccess = (mess) => ({
+  type: types.LOGOUT_SUCCESS,
+  mess
+});
+
 export const saveTokenLogin = (token) => ({
   type: types.SAVE_TOKEN,
   token

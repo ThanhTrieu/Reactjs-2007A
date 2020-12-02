@@ -17,7 +17,7 @@ const loginReducer = (state = initialState, action) => {
       return { ...state, error: null, info: action.data}
     case types.LOGIN_FAILURE:
       return { ...state, error: action.error, info: null}
-    case types.LOGOUT:
+    case types.LOGOUT_SUCCESS:
       return { ...state, error: null, info: null, cancelled: null }
     default:
       return state;
